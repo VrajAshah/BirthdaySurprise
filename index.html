@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -8,7 +9,9 @@
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@0,600;1,600&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@0,600;1,600&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
   <style>
@@ -17,19 +20,32 @@
       user-select: none;
       -webkit-tap-highlight-color: transparent;
     }
+
     .serif-title {
       font-family: 'Playfair Display', serif;
     }
+
     .handwriting {
       font-family: 'Caveat', cursive;
     }
 
     /* Floating hearts background */
     @keyframes floatHeart {
-      0% { transform: translateY(105vh) scale(0.6); opacity: 0; }
-      30% { opacity: 0.5; }
-      100% { transform: translateY(-10vh) scale(1.1); opacity: 0; }
+      0% {
+        transform: translateY(105vh) scale(0.6);
+        opacity: 0;
+      }
+
+      30% {
+        opacity: 0.5;
+      }
+
+      100% {
+        transform: translateY(-10vh) scale(1.1);
+        opacity: 0;
+      }
     }
+
     .floating-heart {
       position: absolute;
       animation: floatHeart 5s infinite linear;
@@ -39,9 +55,21 @@
 
     /* Candle Flame Animation */
     @keyframes flameFlicker {
-      0%, 100% { transform: scale(1) rotate(-1deg); opacity: 0.95; filter: drop-shadow(0 0 10px #f59e0b); }
-      50% { transform: scale(1.15) rotate(2deg); opacity: 1; filter: drop-shadow(0 0 16px #fbbf24); }
+
+      0%,
+      100% {
+        transform: scale(1) rotate(-1deg);
+        opacity: 0.95;
+        filter: drop-shadow(0 0 10px #f59e0b);
+      }
+
+      50% {
+        transform: scale(1.15) rotate(2deg);
+        opacity: 1;
+        filter: drop-shadow(0 0 16px #fbbf24);
+      }
     }
+
     .flame {
       animation: flameFlicker 0.6s infinite alternate ease-in-out;
       transform-origin: bottom center;
@@ -49,9 +77,17 @@
 
     /* Floating gentle bounce */
     @keyframes gentleFloat {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-8px); }
+
+      0%,
+      100% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-8px);
+      }
     }
+
     .float-item {
       animation: gentleFloat 3s ease-in-out infinite;
     }
@@ -64,13 +100,15 @@
     }
   </style>
 </head>
+
 <body class="overflow-x-hidden">
 
   <audio id="bg-music" loop preload="auto">
     <source src="./music.mp3" type="audio/mpeg">
   </audio>
 
-  <main id="app-canvas" class="relative w-full min-h-[100dvh] bg-gradient-to-b from-[#ffe6ee] via-[#efaac2] to-[#db7dd3] flex flex-col justify-between overflow-hidden transition-colors duration-1000">
+  <main id="app-canvas"
+    class="relative w-full min-h-[100dvh] bg-gradient-to-b from-[#ffe6ee] via-[#efaac2] to-[#db7dd3] flex flex-col justify-between overflow-hidden transition-colors duration-1000">
 
     <div id="hearts-bg" class="absolute inset-0 pointer-events-none overflow-hidden z-0">
       <i class="fa-solid fa-heart floating-heart text-lg" style="left: 1%; animation-delay: 0s;"></i>
@@ -87,10 +125,12 @@
 
     <div class="h-6 shrink-0"></div>
 
-    <div id="stage-container" class="flex-1 flex flex-col items-center justify-center px-4 sm:px-8 relative z-10 text-center w-full max-w-2xl mx-auto">
+    <div id="stage-container"
+      class="flex-1 flex flex-col items-center justify-center px-4 sm:px-8 relative z-10 text-center w-full max-w-2xl mx-auto">
 
       <div id="step-1" class="w-full flex flex-col items-center">
-        <div onclick="nextStep(2)" class="w-60 h-60 sm:w-72 sm:h-72 bg-white/70 backdrop-blur-md rounded-3xl shadow-xl p-6 flex flex-col items-center justify-center cursor-pointer float-item hover:scale-105 transition-transform duration-300 border border-white/60">
+        <div onclick="nextStep(2)"
+          class="w-60 h-60 sm:w-72 sm:h-72 bg-white/70 backdrop-blur-md rounded-3xl shadow-xl p-6 flex flex-col items-center justify-center cursor-pointer float-item hover:scale-105 transition-transform duration-300 border border-white/60">
           <span class="text-rose-900/60 font-bold text-xs sm:text-sm tracking-widest mb-3">TAP TO OPEN</span>
           <div class="relative flex items-center justify-center">
             <i class="fa-solid fa-heart text-7xl sm:text-8xl text-rose-500 drop-shadow-md"></i>
@@ -98,15 +138,17 @@
           </div>
           <div class="w-36 sm:w-44 h-1 bg-rose-300 rounded-full mt-6 opacity-60"></div>
         </div>
-        <p class="text-rose-900/70 text-xs sm:text-sm font-semibold uppercase tracking-widest mt-6">A Special Surprise Inside</p>
+        <p class="text-rose-900/70 text-xs sm:text-sm font-semibold uppercase tracking-widest mt-6">A Special Surprise
+          Inside</p>
       </div>
 
       <div id="step-2" class="hidden w-full flex flex-col items-center">
         <h2 class="handwriting text-3xl sm:text-5xl font-bold text-rose-900 mb-4 leading-tight">
           Happy 27th Birthday,<br><span class="text-rose-600">MILI !</span>
         </h2>
-        
-        <div class="w-44 h-44 sm:w-56 sm:h-56 bg-white/60 rounded-3xl p-4 shadow-md backdrop-blur-sm border border-white/50 flex flex-col items-center justify-center my-4">
+
+        <div
+          class="w-44 h-44 sm:w-56 sm:h-56 bg-white/60 rounded-3xl p-4 shadow-md backdrop-blur-sm border border-white/50 flex flex-col items-center justify-center my-4">
           <div class="text-5xl sm:text-6xl mb-2 flex items-center justify-center gap-1">
             <span>🐻</span>
             <span class="text-4xl">🎂</span>
@@ -117,53 +159,79 @@
           </div>
         </div>
 
-        <p class="serif-title text-stone-800 font-semibold text-sm sm:text-base mb-6 mt-1">Are you excited for what's next?</p>
-        
-        <div class="flex items-center gap-4 relative">
-          <button onclick="nextStep(3)" class="px-8 py-2.5 sm:px-10 sm:py-3 bg-rose-600 hover:bg-rose-700 active:scale-95 text-white font-bold rounded-2xl shadow-md transition-all cursor-pointer">
+        <p class="serif-title text-stone-800 font-semibold text-sm sm:text-base mb-6 mt-1">Are you excited for what's
+          next?</p>
+
+        <div class="flex items-center justify-center gap-4 relative mt-2">
+          <button onclick="nextStep(3)"
+            class="px-8 py-2.5 sm:px-10 sm:py-3 bg-rose-600 hover:bg-rose-700 active:scale-95 text-white font-bold rounded-2xl shadow-md transition-all cursor-pointer">
             Yes
           </button>
-          <button id="no-btn" onmouseover="dodgeNoButton()" style="cursor: default;" class="px-7 py-2.5 sm:px-9 sm:py-3 bg-white text-rose-800 font-semibold rounded-2xl shadow-sm border border-rose-100 transition-all">
+          <button id="no-btn" onmouseenter="dodgeNoButton()" ontouchstart="dodgeNoButton()" style="cursor: default;"
+            class="px-7 py-2.5 sm:px-9 sm:py-3 bg-white text-rose-800 font-semibold rounded-2xl shadow-sm border border-rose-100 transition-all duration-200 select-none">
             No
           </button>
         </div>
       </div>
 
       <div id="step-3" class="hidden w-full flex flex-col items-center">
-        <div class="bg-white/70 px-4 py-1.5 rounded-full text-xs font-bold text-rose-600 shadow-sm border border-white/80 mb-6 tracking-wide">
+        <div
+          class="bg-white/70 px-4 py-1.5 rounded-full text-xs font-bold text-rose-600 shadow-sm border border-white/80 mb-6 tracking-wide">
           <span id="balloon-counter">0</span>/4 POPPED
         </div>
 
         <h2 class="serif-title text-2xl sm:text-4xl font-bold text-rose-900 mb-8">Pop all 4 balloons 🎈</h2>
 
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-8 w-full max-w-sm sm:max-w-xl">
-          <div onclick="popBalloon(this)" class="balloon h-28 sm:h-36 flex flex-col items-center justify-center cursor-pointer float-item" style="animation-delay: 0.1s;">
-            <div class="w-16 h-20 sm:w-20 sm:h-24 bg-sky-300 rounded-full flex items-center justify-center text-white text-sm sm:text-base font-bold shadow-md shadow-sky-200">Love</div>
+          <div onclick="popBalloon(this)"
+            class="balloon h-28 sm:h-36 flex flex-col items-center justify-center cursor-pointer float-item"
+            style="animation-delay: 0.1s;">
+            <div
+              class="w-16 h-20 sm:w-20 sm:h-24 bg-sky-300 rounded-full flex items-center justify-center text-white text-sm sm:text-base font-bold shadow-md shadow-sky-200">
+              Love</div>
             <div class="w-0.5 h-6 bg-stone-300 mt-0.5"></div>
           </div>
-          <div onclick="popBalloon(this)" class="balloon h-28 sm:h-36 flex flex-col items-center justify-center cursor-pointer float-item" style="animation-delay: 0.4s;">
-            <div class="w-16 h-20 sm:w-20 sm:h-24 bg-pink-300 rounded-full flex items-center justify-center text-white text-sm sm:text-base font-bold shadow-md shadow-pink-200">Joy</div>
+          <div onclick="popBalloon(this)"
+            class="balloon h-28 sm:h-36 flex flex-col items-center justify-center cursor-pointer float-item"
+            style="animation-delay: 0.4s;">
+            <div
+              class="w-16 h-20 sm:w-20 sm:h-24 bg-pink-300 rounded-full flex items-center justify-center text-white text-sm sm:text-base font-bold shadow-md shadow-pink-200">
+              Joy</div>
             <div class="w-0.5 h-6 bg-stone-300 mt-0.5"></div>
           </div>
-          <div onclick="popBalloon(this)" class="balloon h-28 sm:h-36 flex flex-col items-center justify-center cursor-pointer float-item" style="animation-delay: 0.2s;">
-            <div class="w-16 h-20 sm:w-20 sm:h-24 bg-emerald-300 rounded-full flex items-center justify-center text-white text-sm sm:text-base font-bold shadow-md shadow-emerald-200">27</div>
+          <div onclick="popBalloon(this)"
+            class="balloon h-28 sm:h-36 flex flex-col items-center justify-center cursor-pointer float-item"
+            style="animation-delay: 0.2s;">
+            <div
+              class="w-16 h-20 sm:w-20 sm:h-24 bg-emerald-300 rounded-full flex items-center justify-center text-white text-sm sm:text-base font-bold shadow-md shadow-emerald-200">
+              27</div>
             <div class="w-0.5 h-6 bg-stone-300 mt-0.5"></div>
           </div>
-          <div onclick="popBalloon(this)" class="balloon h-28 sm:h-36 flex flex-col items-center justify-center cursor-pointer float-item" style="animation-delay: 0.5s;">
-            <div class="w-16 h-20 sm:w-20 sm:h-24 bg-purple-300 rounded-full flex items-center justify-center text-white text-sm sm:text-base font-bold shadow-md shadow-purple-200">Grace</div>
+          <div onclick="popBalloon(this)"
+            class="balloon h-28 sm:h-36 flex flex-col items-center justify-center cursor-pointer float-item"
+            style="animation-delay: 0.5s;">
+            <div
+              class="w-16 h-20 sm:w-20 sm:h-24 bg-purple-300 rounded-full flex items-center justify-center text-white text-sm sm:text-base font-bold shadow-md shadow-purple-200">
+              Grace</div>
             <div class="w-0.5 h-6 bg-stone-300 mt-0.5"></div>
           </div>
         </div>
       </div>
 
       <div id="step-4" class="hidden w-full flex flex-col items-center">
-        <h2 id="blow-heading" class="serif-title text-2xl sm:text-4xl font-bold text-rose-900 mb-8 transition-colors duration-700">Blow the candle</h2>
+        <h2 id="blow-heading"
+          class="serif-title text-2xl sm:text-4xl font-bold text-rose-900 mb-8 transition-colors duration-700">Blow the
+          candle</h2>
 
-        <div onclick="manualBlow()" class="relative flex flex-col items-center cursor-pointer my-4 sm:my-6 hover:scale-105 transition-transform">
-          <div id="candle-flame" class="flame w-4 h-7 bg-gradient-to-t from-orange-500 via-amber-400 to-yellow-200 rounded-full shadow-lg"></div>
+        <div onclick="manualBlow()"
+          class="relative flex flex-col items-center cursor-pointer my-4 sm:my-6 hover:scale-105 transition-transform">
+          <div id="candle-flame"
+            class="flame w-4 h-7 bg-gradient-to-t from-orange-500 via-amber-400 to-yellow-200 rounded-full shadow-lg">
+          </div>
           <div class="w-2.5 sm:w-3 h-10 sm:h-12 bg-rose-800 rounded-t-sm border-t border-rose-300"></div>
 
-          <div class="w-36 sm:w-48 h-10 sm:h-12 bg-white rounded-t-2xl shadow-sm border-b-4 border-amber-900/10 flex items-center justify-center">
+          <div
+            class="w-36 sm:w-48 h-10 sm:h-12 bg-white rounded-t-2xl shadow-sm border-b-4 border-amber-900/10 flex items-center justify-center">
             <span class="text-xs sm:text-sm font-bold text-rose-400 uppercase tracking-wider">Happy 27th</span>
           </div>
           <div class="w-44 sm:w-56 h-12 sm:h-14 bg-[#4a2e21] rounded-b-2xl shadow-md border-t-2 border-[#5c3a2a]"></div>
@@ -178,33 +246,42 @@
       <div id="step-5" class="hidden w-full flex flex-col items-center">
         <h2 class="serif-title italic text-2xl sm:text-4xl font-bold text-rose-900 mb-8">A Message From Our Hearts</h2>
 
-        <div onclick="nextStep(6)" class="w-56 sm:w-72 h-40 sm:h-48 bg-white rounded-3xl shadow-xl flex flex-col items-center justify-center cursor-pointer float-item hover:scale-105 transition-all border-2 border-rose-200/60 relative">
-          <div class="w-0 h-0 border-l-[100px] sm:border-l-[130px] border-l-transparent border-r-[100px] sm:border-r-[130px] border-r-transparent border-t-[70px] sm:border-t-[85px] border-t-rose-200 absolute top-0"></div>
-          <div class="w-10 sm:w-12 h-10 sm:h-12 bg-rose-500 rounded-full flex items-center justify-center text-white shadow-md z-10 text-sm sm:text-base">
+        <div onclick="nextStep(6)"
+          class="w-56 sm:w-72 h-40 sm:h-48 bg-white rounded-3xl shadow-xl flex flex-col items-center justify-center cursor-pointer float-item hover:scale-105 transition-all border-2 border-rose-200/60 relative">
+          <div
+            class="w-0 h-0 border-l-[100px] sm:border-l-[130px] border-l-transparent border-r-[100px] sm:border-r-[130px] border-r-transparent border-t-[70px] sm:border-t-[85px] border-t-rose-200 absolute top-0">
+          </div>
+          <div
+            class="w-10 sm:w-12 h-10 sm:h-12 bg-rose-500 rounded-full flex items-center justify-center text-white shadow-md z-10 text-sm sm:text-base">
             <i class="fa-solid fa-heart"></i>
           </div>
-          <span class="serif-title italic text-rose-900 text-xs sm:text-sm mt-6 sm:mt-8 z-10 font-semibold">Tap to read</span>
+          <span class="serif-title italic text-rose-900 text-xs sm:text-sm mt-6 sm:mt-8 z-10 font-semibold">Tap to
+            read</span>
         </div>
       </div>
 
       <div id="step-6" class="hidden w-full max-w-lg mx-auto flex flex-col items-center">
-        <div class="w-full bg-[#fffaf5] p-6 sm:p-8 rounded-3xl shadow-xl border border-amber-200/50 text-left relative overflow-hidden">
-          <div class="w-8 h-8 sm:w-10 sm:h-10 bg-rose-500 text-white rounded-full flex items-center justify-center absolute top-4 sm:top-6 right-4 sm:right-6 text-xs sm:text-sm shadow-md">
+        <div
+          class="w-full bg-[#fffaf5] p-6 sm:p-8 rounded-3xl shadow-xl border border-amber-200/50 text-left relative overflow-hidden">
+          <div
+            class="w-8 h-8 sm:w-10 sm:h-10 bg-rose-500 text-white rounded-full flex items-center justify-center absolute top-4 sm:top-6 right-4 sm:right-6 text-xs sm:text-sm shadow-md">
             <i class="fa-solid fa-heart"></i>
           </div>
 
           <h3 class="serif-title font-bold text-rose-900 text-sm sm:text-base mb-3">Dear Sister-in-Law,</h3>
           <p class="handwriting text-lg sm:text-2xl text-stone-700 leading-relaxed space-y-2">
             Happy 27th Birthday to someone truly special!<br><br>
-            You are a sweet soul, super loyal, and an incredible addition to our family. Thank you for always bringing happiness, warmth, and laughter wherever you go.<br><br>
+            You are a sweet soul, super loyal, and an incredible addition to our family. Thank you for always bringing
+            happiness, warmth, and laughter wherever you go.<br><br>
             May this 27th year bring you adventure, pure joy, and everything your heart dreams of!
           </p>
-          
+
           <div class="text-right mt-4 text-rose-900 font-bold handwriting text-xl sm:text-2xl">
             — With lots of love!
           </div>
 
-          <button onclick="nextStep(7)" class="w-full mt-6 py-3 bg-rose-500 hover:bg-rose-600 active:scale-95 text-white font-medium text-xs sm:text-sm rounded-xl shadow-md transition-all cursor-pointer">
+          <button onclick="nextStep(7)"
+            class="w-full mt-6 py-3 bg-rose-500 hover:bg-rose-600 active:scale-95 text-white font-medium text-xs sm:text-sm rounded-xl shadow-md transition-all cursor-pointer">
             Next Surprise 🎁
           </button>
         </div>
@@ -214,13 +291,16 @@
         <h2 class="handwriting text-3xl sm:text-5xl font-bold text-rose-900 mb-2">One Last Thing...</h2>
         <p class="serif-title italic text-xs sm:text-sm text-rose-700 mb-6">Tap your birthday gift</p>
 
-        <div id="gift-box" onclick="openFinalGift()" class="text-7xl sm:text-8xl cursor-pointer float-item hover:scale-110 active:scale-90 transition-transform">
+        <div id="gift-box" onclick="openFinalGift()"
+          class="text-7xl sm:text-8xl cursor-pointer float-item hover:scale-110 active:scale-90 transition-transform">
           🎁
         </div>
 
-        <div id="final-card" class="hidden w-full bg-white/90 backdrop-blur-md p-5 sm:p-6 rounded-3xl shadow-xl border border-white mt-4 transition-all duration-700">
+        <div id="final-card"
+          class="hidden w-full bg-white/90 backdrop-blur-md p-5 sm:p-6 rounded-3xl shadow-xl border border-white mt-4 transition-all duration-700">
           <div class="w-full h-52 sm:h-64 rounded-2xl overflow-hidden shadow-inner mb-3 bg-rose-50">
-            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=600&auto=format&fit=crop&q=80" alt="Special Memory" class="w-full h-full object-cover">
+            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=600&auto=format&fit=crop&q=80"
+              alt="Special Memory" class="w-full h-full object-cover">
           </div>
           <p class="handwriting text-2xl sm:text-3xl font-bold text-rose-700">Lots of love for you! ❤️</p>
           <p class="serif-title text-xs sm:text-sm text-stone-500 mt-1">Once again, Happy 27th Birthday!</p>
@@ -235,7 +315,8 @@
       </button> -->
 
       <div class="flex gap-3">
-        <button onclick="restartFlow()" title="Restart" class="w-11 h-11 sm:w-12 sm:h-12 bg-rose-900/15 backdrop-blur-md rounded-full flex items-center justify-center text-rose-950 text-base shadow-sm hover:scale-105 active:scale-95 transition-all cursor-pointer">
+        <button onclick="restartFlow()" title="Restart"
+          class="w-11 h-11 sm:w-12 sm:h-12 bg-rose-900/15 backdrop-blur-md rounded-full flex items-center justify-center text-rose-950 text-base shadow-sm hover:scale-105 active:scale-95 transition-all cursor-pointer">
           <i class="fa-solid fa-rotate-left"></i>
         </button>
         <!-- <button onclick="toggleFullscreen()" title="Fullscreen" class="w-11 h-11 sm:w-12 sm:h-12 bg-rose-900/15 backdrop-blur-md rounded-full flex items-center justify-center text-rose-950 text-base shadow-sm hover:scale-105 active:scale-95 transition-all cursor-pointer">
@@ -252,8 +333,8 @@
     let isMusicPlaying = false;
     let audioContext, analyser, microphone, javascriptNode;
 
-    function spread_confetti(){
-        confetti({
+    function spread_confetti() {
+      confetti({
         particleCount: 250,
         spread: 360,
         origin: { y: 0.5 }
@@ -265,13 +346,13 @@
       const audio = document.getElementById('bg-music');
       console.log("isMusicPlaying", isMusicPlaying);
       console.log("audio", audio);
-        if (!isMusicPlaying && audio) {
-            audio.play().then(() => {
-            isMusicPlaying = true;
-            }).catch(err => {
-            console.warn("Audio play blocked by browser policy:", err);
-            });
-        }
+      if (!isMusicPlaying && audio) {
+        audio.play().then(() => {
+          isMusicPlaying = true;
+        }).catch(err => {
+          console.warn("Audio play blocked by browser policy:", err);
+        });
+      }
       document.querySelectorAll('#stage-container > div').forEach(el => el.classList.add('hidden'));
       const nextEl = document.getElementById(`step-${step}`);
       if (nextEl) {
@@ -284,16 +365,35 @@
       }
     }
 
+    let currentNoX = 0;
+    let currentNoY = 0;
+
     function dodgeNoButton() {
       const btn = document.getElementById('no-btn');
-      const randomX = (Math.random() + 0.5) * 140;
-      const randomY = (Math.random() + 0.5) * 90;
-      btn.style.transform = `translate(${randomX}px, ${randomY}px)`;
+      if (!btn) return;
+
+      // Maximum allowed movement radius from original spot (in pixels)
+      const maxRangeX = 120;
+      const maxRangeY = 60;
+      const minJump = 40;
+
+      let deltaX, deltaY;
+
+      // Generate offsets that jump in any direction (+ or -) and don't stay in place
+      do {
+        deltaX = (Math.random() - 0.5) * 2 * maxRangeX;
+        deltaY = (Math.random() - 0.5) * 2 * maxRangeY;
+      } while (Math.abs(deltaX - currentNoX) < minJump && Math.abs(deltaY - currentNoY) < minJump);
+
+      currentNoX = deltaX;
+      currentNoY = deltaY;
+
+      btn.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
     }
 
     function popBalloon(element) {
       if (element.classList.contains('balloon-pop')) return;
-      
+
       element.classList.add('balloon-pop');
       poppedCount++;
       document.getElementById('balloon-counter').innerText = poppedCount;
@@ -357,7 +457,7 @@
           analyser.connect(javascriptNode);
           javascriptNode.connect(audioContext.destination);
 
-          javascriptNode.onaudioprocess = function() {
+          javascriptNode.onaudioprocess = function () {
             let array = new Uint8Array(analyser.frequencyBinCount);
             analyser.getByteFrequencyData(array);
             let values = 0;
@@ -365,7 +465,7 @@
               values += array[i];
             }
             let average = values / array.length;
-            
+
             if (average > 45 && currentStep === 4) {
               extinguishCandle();
               stream.getTracks().forEach(track => track.stop());
@@ -392,14 +492,14 @@
 
     function toggleMusic() {
       const audio = document.getElementById('bg-music');
-    //   const icon = document.getElementById('music-icon');
-    console.log("isMusicPlaying", isMusicPlaying);
+      //   const icon = document.getElementById('music-icon');
+      console.log("isMusicPlaying", isMusicPlaying);
       if (isMusicPlaying) {
         audio.pause();
         // icon.classList.remove('fa-pause');
         // icon.classList.add('fa-play');
       } else {
-        audio.play().catch(() => {});
+        audio.play().catch(() => { });
         // icon.classList.remove('fa-play');
         // icon.classList.add('fa-pause');
       }
@@ -409,7 +509,7 @@
 
     function toggleFullscreen() {
       if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen().catch(() => {});
+        document.documentElement.requestFullscreen().catch(() => { });
       } else {
         if (document.exitFullscreen) document.exitFullscreen();
       }
@@ -425,10 +525,17 @@
       flame.style.transform = 'scale(1)';
       document.getElementById('gift-box').classList.remove('hidden');
       document.getElementById('final-card').classList.add('hidden');
+      const noBtn = document.getElementById('no-btn');
+      if (noBtn) {
+        noBtn.style.transform = 'translate(0px, 0px)';
+        currentNoX = 0;
+        currentNoY = 0;
+      }
       nextStep(1);
     }
     spread_confetti();
     // toggleMusic();
   </script>
 </body>
+
 </html>
