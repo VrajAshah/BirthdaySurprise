@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Happy 27th Birthday!</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@0,600;1,600&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .serif-title {
+      font-family: 'Playfair Display', serif;
+    }
+    .handwriting {
+      font-family: 'Caveat', cursive;
+    }
+
+    /* Floating hearts background */
+    @keyframes floatHeart {
+      0% { transform: translateY(105vh) scale(0.6); opacity: 0; }
+      30% { opacity: 0.5; }
+      100% { transform: translateY(-10vh) scale(1.1); opacity: 0; }
+    }
+    .floating-heart {
+      position: absolute;
+      animation: floatHeart 5s infinite linear;
+      pointer-events: none;
+      color: #c71d75;
+    }
+
+    /* Candle Flame Animation */
+    @keyframes flameFlicker {
+      0%, 100% { transform: scale(1) rotate(-1deg); opacity: 0.95; filter: drop-shadow(0 0 10px #f59e0b); }
+      50% { transform: scale(1.15) rotate(2deg); opacity: 1; filter: drop-shadow(0 0 16px #fbbf24); }
+    }
+    .flame {
+      animation: flameFlicker 0.6s infinite alternate ease-in-out;
+      transform-origin: bottom center;
+    }
+
+    /* Floating gentle bounce */
+    @keyframes gentleFloat {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+    .float-item {
+      animation: gentleFloat 3s ease-in-out infinite;
+    }
+
+    /* Balloon Pop */
+    .balloon-pop {
+      transform: scale(1.3) !important;
+      opacity: 0 !important;
+      transition: transform 0.15s ease-out, opacity 0.15s ease-out;
+    }
+  </style>
+</head>
+<body class="overflow-x-hidden">
+
+  <audio id="bg-music" loop preload="auto">
+    <source src="./music.mp3" type="audio/mpeg">
+  </audio>
+
+  <main id="app-canvas" class="relative w-full min-h-[100dvh] bg-gradient-to-b from-[#ffe6ee] via-[#efaac2] to-[#db7dd3] flex flex-col justify-between overflow-hidden transition-colors duration-1000">
+
+    <div id="hearts-bg" class="absolute inset-0 pointer-events-none overflow-hidden z-0">
+      <i class="fa-solid fa-heart floating-heart text-lg" style="left: 1%; animation-delay: 0s;"></i>
+      <i class="fa-solid fa-heart floating-heart text-sm" style="left: 11%; animation-delay: 2.5s;"></i>
+      <i class="fa-solid fa-heart floating-heart text-xs" style="left: 21%; animation-delay: 1.2s;"></i>
+      <i class="fa-solid fa-heart floating-heart text-sm" style="left: 31%; animation-delay: 3.1s;"></i>
+      <i class="fa-solid fa-heart floating-heart text-lg" style="left: 41%; animation-delay: 2.2s;"></i>
+      <i class="fa-solid fa-heart floating-heart text-sm" style="left: 51%; animation-delay: 3.4s;"></i>
+      <i class="fa-solid fa-heart floating-heart text-xs" style="left: 61%; animation-delay: 2.5s;"></i>
+      <i class="fa-solid fa-heart floating-heart text-lg" style="left: 71%; animation-delay: 1.2s;"></i>
+      <i class="fa-solid fa-heart floating-heart text-lg" style="left: 81%; animation-delay: 4.1s;"></i>
+      <i class="fa-solid fa-heart floating-heart text-lg" style="left: 91%; animation-delay: 2.5s;"></i>
+    </div>
+
+    <div class="h-6 shrink-0"></div>
+
+    <div id="stage-container" class="flex-1 flex flex-col items-center justify-center px-4 sm:px-8 relative z-10 text-center w-full max-w-2xl mx-auto">
+
+      <div id="step-1" class="w-full flex flex-col items-center">
+        <div onclick="nextStep(2)" class="w-60 h-60 sm:w-72 sm:h-72 bg-white/70 backdrop-blur-md rounded-3xl shadow-xl p-6 flex flex-col items-center justify-center cursor-pointer float-item hover:scale-105 transition-transform duration-300 border border-white/60">
+          <span class="text-rose-900/60 font-bold text-xs sm:text-sm tracking-widest mb-3">TAP TO OPEN</span>
+          <div class="relative flex items-center justify-center">
+            <i class="fa-solid fa-heart text-7xl sm:text-8xl text-rose-500 drop-shadow-md"></i>
+            <i class="fa-solid fa-gift text-2xl sm:text-3xl text-white absolute"></i>
+          </div>
+          <div class="w-36 sm:w-44 h-1 bg-rose-300 rounded-full mt-6 opacity-60"></div>
+        </div>
+        <p class="text-rose-900/70 text-xs sm:text-sm font-semibold uppercase tracking-widest mt-6">A Special Surprise Inside</p>
+      </div>
+
+      <div id="step-2" class="hidden w-full flex flex-col items-center">
+        <h2 class="handwriting text-3xl sm:text-5xl font-bold text-rose-900 mb-4 leading-tight">
+          Happy 27th Birthday,<br><span class="text-rose-600">MILI !</span>
+        </h2>
+        
+        <div class="w-44 h-44 sm:w-56 sm:h-56 bg-white/60 rounded-3xl p-4 shadow-md backdrop-blur-sm border border-white/50 flex flex-col items-center justify-center my-4">
+          <div class="text-5xl sm:text-6xl mb-2 flex items-center justify-center gap-1">
+            <span>🐻</span>
+            <span class="text-4xl">🎂</span>
+            <span>🐼</span>
+          </div>
+          <div class="flex gap-1.5 text-amber-400 text-xs sm:text-sm">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          </div>
+        </div>
+
+        <p class="serif-title text-stone-800 font-semibold text-sm sm:text-base mb-6 mt-1">Are you excited for what's next?</p>
+        
+        <div class="flex items-center gap-4 relative">
+          <button onclick="nextStep(3)" class="px-8 py-2.5 sm:px-10 sm:py-3 bg-rose-600 hover:bg-rose-700 active:scale-95 text-white font-bold rounded-2xl shadow-md transition-all cursor-pointer">
+            Yes
+          </button>
+          <button id="no-btn" onmouseover="dodgeNoButton()" style="cursor: default;" class="px-7 py-2.5 sm:px-9 sm:py-3 bg-white text-rose-800 font-semibold rounded-2xl shadow-sm border border-rose-100 transition-all">
+            No
+          </button>
+        </div>
+      </div>
+
+      <div id="step-3" class="hidden w-full flex flex-col items-center">
+        <div class="bg-white/70 px-4 py-1.5 rounded-full text-xs font-bold text-rose-600 shadow-sm border border-white/80 mb-6 tracking-wide">
+          <span id="balloon-counter">0</span>/4 POPPED
+        </div>
+
+        <h2 class="serif-title text-2xl sm:text-4xl font-bold text-rose-900 mb-8">Pop all 4 balloons 🎈</h2>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-8 w-full max-w-sm sm:max-w-xl">
+          <div onclick="popBalloon(this)" class="balloon h-28 sm:h-36 flex flex-col items-center justify-center cursor-pointer float-item" style="animation-delay: 0.1s;">
+            <div class="w-16 h-20 sm:w-20 sm:h-24 bg-sky-300 rounded-full flex items-center justify-center text-white text-sm sm:text-base font-bold shadow-md shadow-sky-200">Love</div>
+            <div class="w-0.5 h-6 bg-stone-300 mt-0.5"></div>
+          </div>
+          <div onclick="popBalloon(this)" class="balloon h-28 sm:h-36 flex flex-col items-center justify-center cursor-pointer float-item" style="animation-delay: 0.4s;">
+            <div class="w-16 h-20 sm:w-20 sm:h-24 bg-pink-300 rounded-full flex items-center justify-center text-white text-sm sm:text-base font-bold shadow-md shadow-pink-200">Joy</div>
+            <div class="w-0.5 h-6 bg-stone-300 mt-0.5"></div>
+          </div>
+          <div onclick="popBalloon(this)" class="balloon h-28 sm:h-36 flex flex-col items-center justify-center cursor-pointer float-item" style="animation-delay: 0.2s;">
+            <div class="w-16 h-20 sm:w-20 sm:h-24 bg-emerald-300 rounded-full flex items-center justify-center text-white text-sm sm:text-base font-bold shadow-md shadow-emerald-200">27</div>
+            <div class="w-0.5 h-6 bg-stone-300 mt-0.5"></div>
+          </div>
+          <div onclick="popBalloon(this)" class="balloon h-28 sm:h-36 flex flex-col items-center justify-center cursor-pointer float-item" style="animation-delay: 0.5s;">
+            <div class="w-16 h-20 sm:w-20 sm:h-24 bg-purple-300 rounded-full flex items-center justify-center text-white text-sm sm:text-base font-bold shadow-md shadow-purple-200">Grace</div>
+            <div class="w-0.5 h-6 bg-stone-300 mt-0.5"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="step-4" class="hidden w-full flex flex-col items-center">
+        <h2 id="blow-heading" class="serif-title text-2xl sm:text-4xl font-bold text-rose-900 mb-8 transition-colors duration-700">Blow the candle</h2>
+
+        <div onclick="manualBlow()" class="relative flex flex-col items-center cursor-pointer my-4 sm:my-6 hover:scale-105 transition-transform">
+          <div id="candle-flame" class="flame w-4 h-7 bg-gradient-to-t from-orange-500 via-amber-400 to-yellow-200 rounded-full shadow-lg"></div>
+          <div class="w-2.5 sm:w-3 h-10 sm:h-12 bg-rose-800 rounded-t-sm border-t border-rose-300"></div>
+
+          <div class="w-36 sm:w-48 h-10 sm:h-12 bg-white rounded-t-2xl shadow-sm border-b-4 border-amber-900/10 flex items-center justify-center">
+            <span class="text-xs sm:text-sm font-bold text-rose-400 uppercase tracking-wider">Happy 27th</span>
+          </div>
+          <div class="w-44 sm:w-56 h-12 sm:h-14 bg-[#4a2e21] rounded-b-2xl shadow-md border-t-2 border-[#5c3a2a]"></div>
+          <div class="w-56 sm:w-72 h-3 sm:h-4 bg-white/90 rounded-full shadow mt-0.5"></div>
+        </div>
+
+        <p id="mic-status" class="text-rose-900/70 text-xs sm:text-sm font-medium mt-6 flex items-center gap-2">
+          <i class="fa-solid fa-microphone text-rose-500"></i> Blow into your mic (or tap the cake)
+        </p>
+      </div>
+
+      <div id="step-5" class="hidden w-full flex flex-col items-center">
+        <h2 class="serif-title italic text-2xl sm:text-4xl font-bold text-rose-900 mb-8">A Message From Our Hearts</h2>
+
+        <div onclick="nextStep(6)" class="w-56 sm:w-72 h-40 sm:h-48 bg-white rounded-3xl shadow-xl flex flex-col items-center justify-center cursor-pointer float-item hover:scale-105 transition-all border-2 border-rose-200/60 relative">
+          <div class="w-0 h-0 border-l-[100px] sm:border-l-[130px] border-l-transparent border-r-[100px] sm:border-r-[130px] border-r-transparent border-t-[70px] sm:border-t-[85px] border-t-rose-200 absolute top-0"></div>
+          <div class="w-10 sm:w-12 h-10 sm:h-12 bg-rose-500 rounded-full flex items-center justify-center text-white shadow-md z-10 text-sm sm:text-base">
+            <i class="fa-solid fa-heart"></i>
+          </div>
+          <span class="serif-title italic text-rose-900 text-xs sm:text-sm mt-6 sm:mt-8 z-10 font-semibold">Tap to read</span>
+        </div>
+      </div>
+
+      <div id="step-6" class="hidden w-full max-w-lg mx-auto flex flex-col items-center">
+        <div class="w-full bg-[#fffaf5] p-6 sm:p-8 rounded-3xl shadow-xl border border-amber-200/50 text-left relative overflow-hidden">
+          <div class="w-8 h-8 sm:w-10 sm:h-10 bg-rose-500 text-white rounded-full flex items-center justify-center absolute top-4 sm:top-6 right-4 sm:right-6 text-xs sm:text-sm shadow-md">
+            <i class="fa-solid fa-heart"></i>
+          </div>
+
+          <h3 class="serif-title font-bold text-rose-900 text-sm sm:text-base mb-3">Dear Sister-in-Law,</h3>
+          <p class="handwriting text-lg sm:text-2xl text-stone-700 leading-relaxed space-y-2">
+            Happy 27th Birthday to someone truly special!<br><br>
+            You are a sweet soul, super loyal, and an incredible addition to our family. Thank you for always bringing happiness, warmth, and laughter wherever you go.<br><br>
+            May this 27th year bring you adventure, pure joy, and everything your heart dreams of!
+          </p>
+          
+          <div class="text-right mt-4 text-rose-900 font-bold handwriting text-xl sm:text-2xl">
+            — With lots of love!
+          </div>
+
+          <button onclick="nextStep(7)" class="w-full mt-6 py-3 bg-rose-500 hover:bg-rose-600 active:scale-95 text-white font-medium text-xs sm:text-sm rounded-xl shadow-md transition-all cursor-pointer">
+            Next Surprise 🎁
+          </button>
+        </div>
+      </div>
+
+      <div id="step-7" class="hidden w-full max-w-md mx-auto flex flex-col items-center">
+        <h2 class="handwriting text-3xl sm:text-5xl font-bold text-rose-900 mb-2">One Last Thing...</h2>
+        <p class="serif-title italic text-xs sm:text-sm text-rose-700 mb-6">Tap your birthday gift</p>
+
+        <div id="gift-box" onclick="openFinalGift()" class="text-7xl sm:text-8xl cursor-pointer float-item hover:scale-110 active:scale-90 transition-transform">
+          🎁
+        </div>
+
+        <div id="final-card" class="hidden w-full bg-white/90 backdrop-blur-md p-5 sm:p-6 rounded-3xl shadow-xl border border-white mt-4 transition-all duration-700">
+          <div class="w-full h-52 sm:h-64 rounded-2xl overflow-hidden shadow-inner mb-3 bg-rose-50">
+            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=600&auto=format&fit=crop&q=80" alt="Special Memory" class="w-full h-full object-cover">
+          </div>
+          <p class="handwriting text-2xl sm:text-3xl font-bold text-rose-700">Lots of love for you! ❤️</p>
+          <p class="serif-title text-xs sm:text-sm text-stone-500 mt-1">Once again, Happy 27th Birthday!</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="w-full max-w-4xl mx-auto px-6 py-4 flex items-center justify-between z-20 shrink-0">
+      <!-- <button onclick="toggleMusic()" class="w-11 h-11 sm:w-12 sm:h-12 bg-rose-900/15 backdrop-blur-md rounded-full flex items-center justify-center text-rose-950 text-base shadow-sm hover:scale-105 active:scale-95 transition-all cursor-pointer">
+        <i id="music-icon" class="fa-solid fa-play"></i>
+      </button> -->
+
+      <div class="flex gap-3">
+        <button onclick="restartFlow()" title="Restart" class="w-11 h-11 sm:w-12 sm:h-12 bg-rose-900/15 backdrop-blur-md rounded-full flex items-center justify-center text-rose-950 text-base shadow-sm hover:scale-105 active:scale-95 transition-all cursor-pointer">
+          <i class="fa-solid fa-rotate-left"></i>
+        </button>
+        <!-- <button onclick="toggleFullscreen()" title="Fullscreen" class="w-11 h-11 sm:w-12 sm:h-12 bg-rose-900/15 backdrop-blur-md rounded-full flex items-center justify-center text-rose-950 text-base shadow-sm hover:scale-105 active:scale-95 transition-all cursor-pointer">
+          <i class="fa-solid fa-expand"></i>
+        </button> -->
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    let currentStep = 1;
+    let poppedCount = 0;
+    let isMusicPlaying = false;
+    let audioContext, analyser, microphone, javascriptNode;
+
+    function spread_confetti(){
+        confetti({
+        particleCount: 250,
+        spread: 360,
+        origin: { y: 0.5 }
+      });
+    }
+
+    function nextStep(step) {
+      spread_confetti();
+      const audio = document.getElementById('bg-music');
+      console.log("isMusicPlaying", isMusicPlaying);
+      console.log("audio", audio);
+        if (!isMusicPlaying && audio) {
+            audio.play().then(() => {
+            isMusicPlaying = true;
+            }).catch(err => {
+            console.warn("Audio play blocked by browser policy:", err);
+            });
+        }
+      document.querySelectorAll('#stage-container > div').forEach(el => el.classList.add('hidden'));
+      const nextEl = document.getElementById(`step-${step}`);
+      if (nextEl) {
+        nextEl.classList.remove('hidden');
+        currentStep = step;
+      }
+
+      if (step === 4) {
+        initMicBlowListener();
+      }
+    }
+
+    function dodgeNoButton() {
+      const btn = document.getElementById('no-btn');
+      const randomX = (Math.random() + 0.5) * 140;
+      const randomY = (Math.random() + 0.5) * 90;
+      btn.style.transform = `translate(${randomX}px, ${randomY}px)`;
+    }
+
+    function popBalloon(element) {
+      if (element.classList.contains('balloon-pop')) return;
+      
+      element.classList.add('balloon-pop');
+      poppedCount++;
+      document.getElementById('balloon-counter').innerText = poppedCount;
+
+      confetti({
+        particleCount: 25,
+        spread: 40,
+        origin: { y: 0.5 }
+      });
+
+      if (poppedCount >= 4) {
+        setTimeout(() => nextStep(4), 600);
+      }
+    }
+
+    function manualBlow() {
+      extinguishCandle();
+    }
+
+    function extinguishCandle() {
+      const flame = document.getElementById('candle-flame');
+      if (!flame || flame.style.display === 'none') return;
+
+      // Darken atmosphere for wish
+      const canvas = document.getElementById('app-canvas');
+      canvas.classList.remove('from-[#ffe6ee]', 'via-[#ffd2e2]', 'to-[#ffb8d2]');
+      canvas.classList.add('bg-[#4a343a]');
+
+      const heading = document.getElementById('blow-heading');
+      heading.innerText = "Close your eyes & make a wish ✨";
+      heading.classList.add('text-white', 'italic');
+
+      flame.style.transition = 'all 0.5s ease';
+      flame.style.opacity = '0';
+      flame.style.transform = 'scale(0)';
+
+      setTimeout(() => {
+        flame.style.display = 'none';
+        confetti({ particleCount: 90, spread: 80, origin: { y: 0.6 } });
+      }, 500);
+
+      setTimeout(() => {
+        canvas.classList.remove('bg-[#4a343a]');
+        canvas.classList.add('from-[#ffe6ee]', 'via-[#ffd2e2]', 'to-[#ffb8d2]');
+        nextStep(5);
+      }, 2500);
+    }
+
+    function initMicBlowListener() {
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
+          audioContext = new (window.AudioContext || window.webkitAudioContext)();
+          analyser = audioContext.createAnalyser();
+          microphone = audioContext.createMediaStreamSource(stream);
+          javascriptNode = audioContext.createScriptProcessor(2048, 1, 1);
+
+          analyser.smoothingTimeConstant = 0.8;
+          analyser.fftSize = 1024;
+
+          microphone.connect(analyser);
+          analyser.connect(javascriptNode);
+          javascriptNode.connect(audioContext.destination);
+
+          javascriptNode.onaudioprocess = function() {
+            let array = new Uint8Array(analyser.frequencyBinCount);
+            analyser.getByteFrequencyData(array);
+            let values = 0;
+            for (let i = 0; i < array.length; i++) {
+              values += array[i];
+            }
+            let average = values / array.length;
+            
+            if (average > 45 && currentStep === 4) {
+              extinguishCandle();
+              stream.getTracks().forEach(track => track.stop());
+            }
+          };
+        }).catch(err => {
+          console.log("Microphone fallback to manual tap active.");
+        });
+      }
+    }
+
+    function openFinalGift() {
+      const gift = document.getElementById('gift-box');
+      const card = document.getElementById('final-card');
+      gift.classList.add('hidden');
+      card.classList.remove('hidden');
+
+      confetti({
+        particleCount: 120,
+        spread: 100,
+        origin: { y: 0.5 }
+      });
+    }
+
+    function toggleMusic() {
+      const audio = document.getElementById('bg-music');
+    //   const icon = document.getElementById('music-icon');
+    console.log("isMusicPlaying", isMusicPlaying);
+      if (isMusicPlaying) {
+        audio.pause();
+        // icon.classList.remove('fa-pause');
+        // icon.classList.add('fa-play');
+      } else {
+        audio.play().catch(() => {});
+        // icon.classList.remove('fa-play');
+        // icon.classList.add('fa-pause');
+      }
+      isMusicPlaying = !isMusicPlaying;
+      console.log("isMusicPlaying", isMusicPlaying);
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        if (document.exitFullscreen) document.exitFullscreen();
+      }
+    }
+
+    function restartFlow() {
+      poppedCount = 0;
+      document.getElementById('balloon-counter').innerText = 0;
+      document.querySelectorAll('.balloon').forEach(b => b.classList.remove('balloon-pop'));
+      const flame = document.getElementById('candle-flame');
+      flame.style.display = 'block';
+      flame.style.opacity = '1';
+      flame.style.transform = 'scale(1)';
+      document.getElementById('gift-box').classList.remove('hidden');
+      document.getElementById('final-card').classList.add('hidden');
+      nextStep(1);
+    }
+    spread_confetti();
+    // toggleMusic();
+  </script>
+</body>
+</html>
